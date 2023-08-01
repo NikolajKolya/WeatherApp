@@ -11,6 +11,23 @@ namespace backend
 
             builder.Services.AddControllers();
             
+            #region CORS
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy
+                (
+                    policy =>
+                    {
+                        policy.WithOrigins
+                        (
+                            "http://localhost:8080"
+                        );
+                    }
+                );
+            });
+            #endregion
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -29,6 +46,8 @@ namespace backend
 
             app.MapControllers();
 
+            app.UseCors();
+            
             app.Run();
         }
     }
