@@ -6,7 +6,7 @@
 }
 
 body{
-    background: url('https://www.printstudio.shop/wp-content/uploads/2020/10/FT000014.jpg');
+    background: url('images/background.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -19,7 +19,7 @@ body{
     border: 0.1rem solid hsl(240, 62%, 63%);
     border-radius: 1rem;
 
-    background: hsl(208, 100%, 97%);
+    background: hsla(229, 98%, 17%, 0.41);
 
     padding-left: 1rem;
     padding-right: 1rem;
@@ -39,11 +39,24 @@ body{
     color: hsl(240, 100%, 27%);
 }
 
-.one-day-weather-temperature {
-    font-size: 3.5rem;
-    margin-top: 2rem;
+.one-day-calendar-weather-date{
+    height: 10rem;
+    background-color: rgba(1, 17, 66, 0.53);
+    border-radius: 0.4rem 0.4rem 0 0;
+    padding-top: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: hsl(164, 100%, 50%);
+    color: hsl(240, 100%, 27%);
+}
+
+.one-day-weather-temperature {
+    font-size: 2.5rem;
+    border-radius: 0 0 0.4rem 0.4rem;
+    background-color: hsl(214, 100%, 9%);
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    font-weight: bold;
+    color: hsl(168, 100%, 84%);
 }
 
 /* Элемент, выравненный по центру */
@@ -68,20 +81,37 @@ body{
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 /* Столбец в календаре погоды */
 .weather-calendar-item {
-    width: 10rem;
-    height: 10rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.full-weather-container{
+    width: 12rem;
+    height: 5rem;
 
     border: 0.1rem solid hsl(240, 62%, 63%);
     border-radius: 1rem;
 
-    background: hsl(208, 100%, 97%);
+    background: hsla(229, 98%, 17%, 0.41);
+
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-left-aligned{
+    text-align: left;
 }

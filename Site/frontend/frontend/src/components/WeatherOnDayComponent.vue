@@ -28,13 +28,13 @@ import {defineProps, ref, onMounted, watch} from "vue";
 </script>
 
 <template>
-  <div class="one-day-weather-container">
+  <div class="full-weather-container">
     <LoadingComponent v-if="isLoading" />
     <div v-if="!isLoading">
-      <div> {{ props.date }} </div>
-      <div> {{ weather.weather.temperature }} </div>
-      <div> {{ weather.weather.humidity }} </div>
-      <div> {{ weather.weather.pressure }} </div>
+      <div class="one-day-weather-date"> {{ props.date }} </div>
+      <div class="text-left-aligned"> температура: {{ weather.weather.temperature }}°C
+      <br/> влажность: {{ weather.weather.humidity }}%
+      <br/> давление: {{ weather.weather.pressure }}чего то там</div>
     </div>
   </div>
 </template>

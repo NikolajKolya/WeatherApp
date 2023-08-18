@@ -34,7 +34,7 @@ import {defineProps, onMounted, ref} from "vue";
       <div class="one-day-weather-date">
         {{ weather.date }}
       </div>
-      <div>Температура: {{ weather.weather.temperature }}</div>
+      <div>Температура: {{ weather.weather.temperature }}°C</div>
     </div>
   </div>
 </template>
