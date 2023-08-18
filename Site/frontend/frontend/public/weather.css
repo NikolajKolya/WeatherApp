@@ -1,0 +1,87 @@
+/* Кнопка перезагрузки погоды */
+.reload-button {
+    border: 0.1rem solid hsl(0, 0%, 50%);
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+body{
+    background: url('https://www.printstudio.shop/wp-content/uploads/2020/10/FT000014.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Контейнер для погоды за один день */
+.one-day-weather-container {
+    width: 10rem;
+    height: 3rem;
+
+    border: 0.1rem solid hsl(240, 62%, 63%);
+    border-radius: 1rem;
+
+    background: hsl(208, 100%, 97%);
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Дата в компоненте с погодой */
+.one-day-weather-date {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: hsl(240, 100%, 27%);
+}
+
+.one-day-weather-temperature {
+    font-size: 3.5rem;
+    margin-top: 2rem;
+    font-weight: bold;
+    color: hsl(164, 100%, 50%);
+}
+
+/* Элемент, выравненный по центру */
+.centered {
+    text-align: center;
+}
+
+/* Loading symbol */
+.loading-symbol {
+    text-align: center;
+}
+
+/* Loading symbol image */
+.loading-symbol-image {
+    width: 1.0rem;
+    height: 1.0rem;
+}
+
+/* Контейнер для элементов календаря */
+.weather-calendar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Столбец в календаре погоды */
+.weather-calendar-item {
+    width: 10rem;
+    height: 10rem;
+
+    border: 0.1rem solid hsl(240, 62%, 63%);
+    border-radius: 1rem;
+
+    background: hsl(208, 100%, 97%);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}

@@ -9,11 +9,11 @@ namespace backend.Models.Api.Responses;
 public class CurrentWeatherResponse
 {
     [JsonPropertyName("currentWeather")]
-    public WeatherDto CurrentWeather { get; private set; }
+    public ShortWeatherDto CurrentWeather { get; private set; }
 
     public CurrentWeatherResponse
     (
-        WeatherDto currentWeather
+        ShortWeatherDto currentWeather
     )
     {
         CurrentWeather = currentWeather

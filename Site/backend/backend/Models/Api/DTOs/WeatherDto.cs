@@ -13,14 +13,25 @@ public class WeatherDto
     [JsonPropertyName("temperature")]
     public double Temperature { get; private set; }
 
+    [JsonPropertyName("humidity")]
+    public double Humidity { get; private set; }
+
+    [JsonPropertyName("pressure")]
+    public double Pressure { get; private set; }
+
     public WeatherDto
     (
-        DateTime timespamp,
-        double temperature
+        DateTime timestamp,
+        double temperature,
+        double humidity,
+        double pressure
     )
     {
-        // TODO: Add checks
-        Timestamp = timespamp;
+        if (humidity < 0 & humidity > 100) throw new ArgumentOutOfRangeException(nameof(humidity));
+        if (pressure <= 0) throw new ArgumentOutOfRangeException(nameof(pressure));
+        Humidity = humidity;
+        Pressure = pressure;
+        Timestamp = timestamp;
         Temperature = temperature;
     }
 }
