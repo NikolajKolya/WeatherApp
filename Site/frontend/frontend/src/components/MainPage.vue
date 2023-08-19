@@ -10,7 +10,7 @@
 
   const isLoading = ref(true)
 
-  const currentDate = ref(null)
+  const selectedDate = ref(null)
 
   // OnMounted hook
   onMounted(async () =>
@@ -21,8 +21,18 @@
   // Called when page is loaded
   async function OnLoad()
   {
-    currentDate.value = (await (await fetch(apiBaseUrl + '/api/Weather/CurrentDate')).json())
+    // Initially selected date = current date
+    let currentDate = ((await (await fetch(apiBaseUrl + '/api/Weather/CurrentDate')).json()))
+        .currentDate
+    await OnCalendarDateChanged(currentDate)
+
     isLoading.value = false
+  }
+
+  // Called, when calendar emits the date
+  async function OnCalendarDateChanged(date)
+  {
+    selectedDate.value = date
   }
 
 </script>
@@ -33,9 +43,9 @@
     <LoadingComponent v-if="isLoading" />
 
     <div v-if="!isLoading">
-      <DayWeatherComponent :date="currentDate.currentDate" />
-
-      <WeatherCalendar />
+      <DayWeatherComponent :key="selectedDate" :date="selectedDate" />
     </div>
+
+    <WeatherCalendar @displayWeatherForDate="async (d) => await OnCalendarDateChanged(d)" />
   </div>
 </template>

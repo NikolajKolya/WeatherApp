@@ -13,18 +13,6 @@ namespace backend.Controllers;
 public class WeatherController : ControllerBase
 {
     /// <summary>
-    /// Get current weather
-    /// </summary>
-    [Route("api/Weather/Current")]
-    [HttpGet]
-    public async Task<ActionResult<CurrentWeatherResponse>> GetCurrentWeather()
-    {
-        RandomTemperature randomTemperature = new RandomTemperature();
-        var weather = new ShortWeatherDto(DateTime.UtcNow, randomTemperature.CreateRandomTemperature());
-        return Ok(new CurrentWeatherResponse(weather));
-    }
-
-    /// <summary>
     /// Get current date
     /// </summary>
     [Route("api/Weather/CurrentDate")]
@@ -34,18 +22,23 @@ public class WeatherController : ControllerBase
         return Ok(new CurrentDateResponse(DateOnly.FromDateTime(DateTime.UtcNow)));
     }
 
+    /// <summary>
+    /// Returns full weather for given date
+    /// </summary>
     [Route("api/Weather/{date}")]
     [HttpGet]
-    public async Task<ActionResult<ShortWeatherResponse>> GetCurrentWeather(DateOnly date)
+    public async Task<ActionResult<WeatherResponse>> GetCurrentWeather(DateOnly date)
     {
         RandomTemperature randomTemperature = new RandomTemperature();
-        var weather = new ShortWeatherDto
+        var weather = new WeatherDto
         (
             date.ToDateTime(TimeOnly.MinValue),
-            randomTemperature.CreateRandomTemperature()
+            randomTemperature.CreateRandomTemperature(),
+            randomTemperature.CreateRandomHumidity(),
+            randomTemperature.CreateRandomPressure()
         );
         
-        return Ok(new ShortWeatherResponse(date, weather));
+        return Ok(new WeatherResponse(date, weather));
     }
 
     [Route("api/Weather/GetCalendar")]
@@ -76,20 +69,5 @@ public class WeatherController : ControllerBase
         }
         
         return Ok(new WeatherCalendarResponse(items));
-    }
-    
-    [Route("api/Weather/FullWeather/{date}")]
-    [HttpGet]
-    public async Task<ActionResult<FullWeatherResponse>> GetWeatherForOneDay(DateOnly date)
-    {
-        var randomTemperature = new RandomTemperature();
-        var weather = new WeatherDto
-        (
-            date.ToDateTime(TimeOnly.MinValue),
-            randomTemperature.CreateRandomTemperature(),
-            randomTemperature.CreateRandomHumidity(),
-            randomTemperature.CreateRandomPressure()
-        );
-        return Ok(new FullWeatherResponse(weather));
     }
 }

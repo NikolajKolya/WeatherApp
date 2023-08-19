@@ -27,8 +27,16 @@ public class WeatherDto
         double pressure
     )
     {
-        if (humidity < 0 & humidity > 100) throw new ArgumentOutOfRangeException(nameof(humidity));
-        if (pressure <= 0) throw new ArgumentOutOfRangeException(nameof(pressure));
+        if (humidity < 0 & humidity > 100)
+        {
+            throw new ArgumentOutOfRangeException(nameof(humidity));
+        }
+
+        if (pressure <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pressure));
+        }
+        
         Humidity = humidity;
         Pressure = pressure;
         Timestamp = timestamp;

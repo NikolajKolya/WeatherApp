@@ -1,9 +1,9 @@
 <script setup>
-import {defineProps, onMounted, ref} from "vue";
+  import {defineProps, onMounted, ref} from "vue";
   import LoadingComponent from "@/components/LoadingComponent.vue";
 
   const props = defineProps({
-    date: Date
+    date: String
   })
 
   const apiBaseUrl = process.env.VUE_APP_API_URL
@@ -35,6 +35,8 @@ import {defineProps, onMounted, ref} from "vue";
         {{ weather.date }}
       </div>
       <div>Температура: {{ weather.weather.temperature }}°C</div>
+      <div>Влажность: {{ weather.weather.humidity }}%</div>
+      <div>Давление: {{ weather.weather.pressure }}гПа</div>
     </div>
   </div>
 </template>

@@ -1,19 +1,15 @@
 <script setup>
+  import {onMounted, ref, defineEmits } from "vue";
+  import LoadingComponent from "@/components/LoadingComponent.vue";
+  import WeatherCalendarItem from "@/components/WeatherCalendarItem.vue";
 
-import {onMounted, ref} from "vue";
-import LoadingComponent from "@/components/LoadingComponent.vue";
-import WeatherCalendarItem from "@/components/WeatherCalendarItem.vue";
-import WeatherOnDayComponent from "@/components/WeatherOnDayComponent.vue";
+  const emit = defineEmits(['displayWeatherForDate'])
 
   const apiBaseUrl = process.env.VUE_APP_API_URL
 
   const isLoading = ref(true)
 
   const calendarData = ref(null)
-
-  const isClicked = ref(false)
-
-  const dateForWeather = ref(null)
 
   onMounted(async () =>
   {
@@ -26,11 +22,9 @@ import WeatherOnDayComponent from "@/components/WeatherOnDayComponent.vue";
     isLoading.value = false
   }
 
-
-  function LoadWeatherDataForOneDay(date)
+  async function LoadWeatherDataForOneDay(date)
   {
-    isClicked.value = true
-    dateForWeather.value = date
+    emit('displayWeatherForDate', date)
   }
 
 </script>
@@ -40,13 +34,14 @@ import WeatherOnDayComponent from "@/components/WeatherOnDayComponent.vue";
 
   <div v-if="!isLoading">
     <div class="weather-calendar-container">
+
       <WeatherCalendarItem
           v-for="item in calendarData.calendarItems"
           :key="item.date"
           :shortWeather="item"
-          @click="LoadWeatherDataForOneDay(item.date)"
+          @click="async () => await LoadWeatherDataForOneDay(item.date)"
       />
+
     </div>
   </div>
-  <WeatherOnDayComponent v-if="isClicked" :date=dateForWeather />
 </template>

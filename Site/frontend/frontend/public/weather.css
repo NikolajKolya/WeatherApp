@@ -14,7 +14,7 @@ body{
 /* Контейнер для погоды за один день */
 .one-day-weather-container {
     width: 10rem;
-    height: 3rem;
+    height: 5rem;
 
     border: 0.1rem solid hsl(240, 62%, 63%);
     border-radius: 1rem;
@@ -37,26 +37,6 @@ body{
     font-size: 1.5rem;
     font-weight: bold;
     color: hsl(240, 100%, 27%);
-}
-
-.one-day-calendar-weather-date{
-    height: 10rem;
-    background-color: rgba(1, 17, 66, 0.53);
-    border-radius: 0.4rem 0.4rem 0 0;
-    padding-top: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: hsl(240, 100%, 27%);
-}
-
-.one-day-weather-temperature {
-    font-size: 2.5rem;
-    border-radius: 0 0 0.4rem 0.4rem;
-    background-color: hsl(214, 100%, 9%);
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    font-weight: bold;
-    color: hsl(168, 100%, 84%);
 }
 
 /* Элемент, выравненный по центру */
@@ -84,32 +64,47 @@ body{
     gap: 0.5rem;
 }
 
-/* Столбец в календаре погоды */
-.weather-calendar-item {
+/* Столбец в календаре погоды (контенер) */
+.weather-calendar-item-container {
+    cursor: pointer;
+
     padding-left: 0.8rem;
     padding-right: 0.8rem;
     padding-top: 1rem;
     padding-bottom: 0.5rem;
+
+    width: 7rem;
 }
 
-.full-weather-container{
-    width: 12rem;
-    height: 5rem;
+/* Столбец в календаре погоды (верхняя часть) */
+.weather-calendar-item-container.weather-calendar-item-top {
+    height: 8rem;
 
-    border: 0.1rem solid hsl(240, 62%, 63%);
-    border-radius: 1rem;
+    color: hsl(240, 100%, 27%);
+    background-color: rgba(1, 17, 66, 0.53);
 
-    background: hsla(229, 98%, 17%, 0.41);
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
 
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
 
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    margin-left: auto;
-    margin-right: auto;
+/* Столбец в календаре погоды (нижняя часть) */
+.weather-calendar-item-container.weather-calendar-item-bottom {
+    color: hsl(168, 100%, 84%);
+    background-color: hsl(214, 100%, 9%);
+
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Картинка в погодном каледаре*/
+.weather-calendar-item-picture {
+    width: 7rem;
 }
 
 .text-left-aligned{

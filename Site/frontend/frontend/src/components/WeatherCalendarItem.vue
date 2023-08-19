@@ -1,22 +1,48 @@
 <script setup>
-import {defineProps} from "vue";
+import {defineProps, onMounted, ref} from "vue";
 
   const props = defineProps({
     shortWeather: Object
   })
 
-  console.log(props)
+  const weatherImage = ref(null)
+
+  onMounted(async () =>
+  {
+    await OnLoad();
+  })
+
+  async function OnLoad()
+  {
+    if (props.shortWeather.shortWeather.temperature > 23)
+    {
+      weatherImage.value = "images/sun.png"
+    }
+    else if (props.shortWeather.shortWeather.temperature < 23 && props.shortWeather.shortWeather.temperature > 4)
+    {
+      weatherImage.value = "images/cloud.png"
+    }
+    else if (props.shortWeather.shortWeather.temperature <= 4)
+    {
+      weatherImage.value = "images/snowflake.png"
+    }
+  }
+
 </script>
 
 <template>
-  <div class="weather-calendar-item">
-    <div class="one-day-calendar-weather-date">
-      {{ props.shortWeather.date }}
-      <div v-if="props.shortWeather.shortWeather.temperature >= 23"><img src="images/sun.png" width="100"></div>
-      <div v-if="props.shortWeather.shortWeather.temperature < 23 && props.shortWeather.shortWeather.temperature > 4"><img src="images/cloud.png" width="100"></div>
-      <div v-if="props.shortWeather.shortWeather.temperature <= 4"><img src="images/snowflake.png" width="100"></div>
+  <div>
+    <div class="weather-calendar-item-container weather-calendar-item-top">
+      <div>
+        {{ props.shortWeather.date }}
+      </div>
+
+      <div>
+        <img class="weather-calendar-item-picture" :src="weatherImage">
+      </div>
     </div>
-    <div class="one-day-weather-temperature">
+
+    <div class="weather-calendar-item-container weather-calendar-item-bottom">
       {{ props.shortWeather.shortWeather.temperature }}°C
     </div>
   </div>
