@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+
+  # PostgreSQL
+  weatherapp-postgresql: # Создать контейнер (виртуальный компьютер) с именем weatherapp-postgresql
+    image: weatherapp-infrastructure-postgres # Использовать образ с таким-то именем
+    container_name: weatherapp-postgresql # Название контенера
+    restart: always # Всегда запускать
+
+    ports:
+      - 127.0.0.1:5433:5432 # Сервер базы данных будет доступен по адресу 127.0.0.1:5433
+
+    environment:
+      POSTGRES_PASSWORD: 7IoX80ggKRhJbLWoDIlde6M1frSQ5b # Это пароль админа базы данных (имя пользователя - postgres)
+
+    volumes:
+      - weatherapp_postgresql_data:/var/lib/postgresql/data # Тут мы создаём виртуальную папку weatherapp_postgresql_data
+      # и говорим "связать её с реальной папкой /var/lib/postgresql/data контейнера". Зачем мы это делаем? Затем, чтобы можно
+      # было выключить сервер, затем включить снова и не потерять данные - виртуальные папки сохраняются между перезагрузками
+
+    networks:
+      - weatherapp-net # Здесь мы подключаем контейнер к виртуальной сети weatherapp-net
+
+  # Adminer
+  weatherapp-adminer: # Создать контейнер с именем weatherapp-adminer
+    image: adminer # Использовать образ программы adminer (программа для управления базами данных)
+    container_name: weatherapp-adminer # Имя контенера
+    restart: always # Всегда запускать
+
+    ports:
+      - 127.0.0.1:9082:8080 # Управляющая программа доступна по адресу 127.0.0.1:9082
+
+    networks:
+      - weatherapp-net # Этот контейнер также подключается к виртуальной сети weatherapp-net, таким образом управляющая программа
+      # (adminer) получает доступ к серверу, которым она будет управлять
+      
+volumes:
+  # Weatherapp postgresql database storage
+  weatherapp_postgresql_data: # Перечисляем все виртуальные папки, что упоминались выше, у нас это одна папка
+  # weatherapp_postgresql_data
+
+networks:
+    # Перечисляем все виртуальные сети, что упоминались выше, у нас это одна сеть weatherapp-net
+  weatherapp-net:
+    driver: bridge # Драйвер виртуальной сети, пока-что это не важно (это значит "есть сеть, изолированная от внешнего мира, к которой подключаются
+    # виртуальные компьютеры")
