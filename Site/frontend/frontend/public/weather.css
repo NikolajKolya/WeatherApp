@@ -14,7 +14,7 @@ body{
 /* Контейнер для погоды за один день */
 .one-day-weather-container {
     width: 10rem;
-    height: 5rem;
+    height: 12rem;
 
     border: 0.1rem solid hsl(240, 62%, 63%);
     border-radius: 1rem;
@@ -109,4 +109,10 @@ body{
 
 .text-left-aligned{
     text-align: left;
+}
+
+.full-temperature-information{
+    color: hsl(168, 100%, 84%);
+    font-size: 1rem;
+    font-weight: bold;
 }

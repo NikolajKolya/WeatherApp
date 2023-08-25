@@ -1,6 +1,7 @@
 <script setup>
   import {defineProps, onMounted, ref} from "vue";
   import LoadingComponent from "@/components/LoadingComponent.vue";
+  import WeatherPicture from "@/components/WeatherPicture.vue";
 
   const props = defineProps({
     date: String
@@ -34,9 +35,14 @@
       <div class="one-day-weather-date">
         {{ weather.date }}
       </div>
-      <div>Температура: {{ weather.weather.temperature }}°C</div>
-      <div>Влажность: {{ weather.weather.humidity }}%</div>
-      <div>Давление: {{ weather.weather.pressure }}гПа</div>
+      <div class="full-temperature-information">
+        <div>Температура: {{ weather.weather.temperature }}°C</div>
+        <div>Влажность: {{ weather.weather.humidity }}%</div>
+        <div>Давление: {{ weather.weather.pressure }}гПа</div>
+      </div>
+      <div>
+        <WeatherPicture :temperature="weather.weather.temperature"/>
+      </div>
     </div>
   </div>
 </template>

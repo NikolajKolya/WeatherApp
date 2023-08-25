@@ -1,32 +1,10 @@
 <script setup>
-import {defineProps, onMounted, ref} from "vue";
+import {defineProps} from "vue";
+import WeatherPicture from "@/components/WeatherPicture.vue";
 
   const props = defineProps({
     shortWeather: Object
   })
-
-  const weatherImage = ref(null)
-
-  onMounted(async () =>
-  {
-    await OnLoad();
-  })
-
-  async function OnLoad()
-  {
-    if (props.shortWeather.shortWeather.temperature > 23)
-    {
-      weatherImage.value = "images/sun.png"
-    }
-    else if (props.shortWeather.shortWeather.temperature < 23 && props.shortWeather.shortWeather.temperature > 4)
-    {
-      weatherImage.value = "images/cloud.png"
-    }
-    else if (props.shortWeather.shortWeather.temperature <= 4)
-    {
-      weatherImage.value = "images/snowflake.png"
-    }
-  }
 
 </script>
 
@@ -38,7 +16,7 @@ import {defineProps, onMounted, ref} from "vue";
       </div>
 
       <div>
-        <img class="weather-calendar-item-picture" :src="weatherImage">
+        <WeatherPicture :temperature="props.shortWeather.shortWeather.temperature"/>
       </div>
     </div>
 
