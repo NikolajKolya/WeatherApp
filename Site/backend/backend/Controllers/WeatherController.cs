@@ -1,7 +1,6 @@
-﻿using System.Security.Cryptography;
-using backend.Models.Api.DTOs;
+﻿using backend.Models.Api.DTOs;
 using backend.Models.Api.Responses;
-using backend.Randoms;
+using backend.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
@@ -12,6 +11,16 @@ namespace backend.Controllers;
 [ApiController]
 public class WeatherController : ControllerBase
 {
+    private readonly IWeatherService _weatherService;
+
+    public WeatherController
+    (
+        IWeatherService weatherService
+    )
+    {
+        _weatherService = weatherService;
+    }
+    
     /// <summary>
     /// Get current date
     /// </summary>
@@ -29,41 +38,35 @@ public class WeatherController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<WeatherResponse>> GetCurrentWeather(DateOnly date)
     {
-        RandomTemperature randomTemperature = new RandomTemperature();
-        var weather = new WeatherDto
+        return Ok
         (
-            date.ToDateTime(TimeOnly.MinValue),
-            randomTemperature.CreateRandomTemperature(),
-            randomTemperature.CreateRandomHumidity(),
-            randomTemperature.CreateRandomPressure()
+            new WeatherResponse
+            (
+                date,
+                (await _weatherService.GetWeatherByDateAsync(date)).ToWeatherDto()
+            )
         );
-        
-        return Ok(new WeatherResponse(date, weather));
     }
 
     [Route("api/Weather/GetCalendar")]
     [HttpGet]
     public async Task<ActionResult<WeatherCalendarResponse>> GetWeatherCalendar()
     {
-        RandomTemperature randomTemperature = new RandomTemperature();
-        
         var items = new List<WeatherCalendarItem>();
         
         var date = DateOnly.FromDateTime(DateTime.UtcNow);
         for (var i = 0; i < 7; i++)
         {
+            var shortWeather = (await _weatherService.GetWeatherByDateAsync(date)).ToShortWeatherDto();
+            
             items.Add
+            (
+                new WeatherCalendarItem
                 (
-                    new WeatherCalendarItem
-                        (
-                            date,
-                            new ShortWeatherDto
-                                (
-                                    date.ToDateTime(TimeOnly.MinValue),
-                                    randomTemperature.CreateRandomTemperature()
-                                )
-                        )
-                );
+                    date,
+                    shortWeather
+                )
+            );
 
             date = date.AddDays(1);
         }
